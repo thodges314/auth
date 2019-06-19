@@ -45,7 +45,10 @@ class App extends Component {
       case false:
         return <LoginForm />
       default:
-        return <Spinner />
+        return(
+        <View style={styles.spinnerStyle} >
+          <Spinner />
+        </View>)
     }
   }
 
@@ -56,6 +59,14 @@ class App extends Component {
         {this.renderContent()}
       </View>
     )
+  }
+}
+
+const styles = {
+  spinnerStyle:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%'
   }
 }
 
