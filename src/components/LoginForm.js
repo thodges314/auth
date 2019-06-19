@@ -1,10 +1,24 @@
 import React, {Component} from 'react'
+import {Text} from 'react-native'
+import firebase from 'firebase';
 import {Button, Card, CardSection, Input} from './common'
 
 class LoginForm extends Component {
 	state={
 		email: '',
+		error:'',
 		password: ''
+	}
+
+	onButtonPress() { // possibly swap for arrow function later
+		const {email, password} = this.state
+		firebase.auth().signInWithEmailAndPassword(email, password)
+			.catch(()=>{
+				firebase.auth().createUserWithEmailAndPassword(email, password)
+					.catch(()=>{
+						this.setState({error: 'Authentication failed!!!'})
+					})
+			})
 	}
 
 	render() {
@@ -27,8 +41,9 @@ class LoginForm extends Component {
 						value={this.state.password}				
 					/>
 				</CardSection>
+				<Text>{this.state.error}</Text>
 				<CardSection>
-					<Button>
+					<Button onPress={this.onButtonPress.bind(this)} >
 						Login
 					</Button>
 				</CardSection>
