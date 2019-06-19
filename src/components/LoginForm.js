@@ -12,6 +12,7 @@ class LoginForm extends Component {
 
 	onButtonPress() { // possibly swap for arrow function later
 		const {email, password} = this.state
+		this.setState({error: ''})
 		firebase.auth().signInWithEmailAndPassword(email, password)
 			.catch(()=>{
 				firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -22,6 +23,7 @@ class LoginForm extends Component {
 	}
 
 	render() {
+		const {errorTextStyle} = styles
 		return (
 			<Card>
 				<CardSection>
@@ -41,7 +43,7 @@ class LoginForm extends Component {
 						value={this.state.password}				
 					/>
 				</CardSection>
-				<Text>{this.state.error}</Text>
+				<Text style={errorTextStyle}>{this.state.error}</Text>
 				<CardSection>
 					<Button onPress={this.onButtonPress.bind(this)} >
 						Login
@@ -49,6 +51,14 @@ class LoginForm extends Component {
 				</CardSection>
 			</Card>
 		)
+	}
+}
+
+const styles = {
+	errorTextStyle:{
+		fontSize: 20,
+		alignSelf: 'center',
+		color:'red'
 	}
 }
 
