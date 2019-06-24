@@ -68,7 +68,7 @@ class LoginForm extends Component {
 				<CardSection>
 					<Input
 						label={'password'}
-						obfuscate
+						secureTextEntry
 						onChangeText={password => this.setState({password})}
 						placeholder={'password'}
 						value={password}				
